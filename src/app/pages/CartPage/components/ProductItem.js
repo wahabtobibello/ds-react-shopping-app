@@ -2,14 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const ProductItem = (props) => {
-    const { title, image, price, removeFromCart } = props
+    const { id, title, image, price, removeFromCart } = props
     return (
         <tr>
             <th scope="row">
                 <img src="img/icon/close-icon.png" alt="" onClick={removeFromCart} />
             </th>
             <td>
-                <Link to="/product">
+                <Link to={`/product/${id}`}>
                     <div className="media">
                         <div className="d-flex">
                             <img src={image.url} alt={image.desc} width="102px" height="123px" />
