@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Price from './components/Price'
+
 class ProductDetailsPage extends Component {
     render() {
         const { product, addToCart } = this.props
@@ -38,39 +40,7 @@ class ProductDetailsPage extends Component {
                         <div className="col-lg-7">
                             <div className="product_details_text">
                                 <h3>{product.title}</h3>
-                                <ul className="p_rating">
-                                    <li><a href="/"><i className="fa fa-star"></i></a></li>
-                                    <li><a href="/"><i className="fa fa-star"></i></a></li>
-                                    <li><a href="/"><i className="fa fa-star"></i></a></li>
-                                    <li><a href="/"><i className="fa fa-star"></i></a></li>
-                                    <li><a href="/"><i className="fa fa-star"></i></a></li>
-                                </ul>
-                                <div className="add_review">
-                                    <a href="/">5 Reviews</a>
-                                    <a href="/">Add your review</a>
-                                </div>
-                                <h6>Available In <span>Stock</span></h6>
-                                <h4>$45.05</h4>
-                                <p>Curabitur semper varius lectus sed consequat. Nam accumsan dapibus sem, sed lobortis nisi porta vitae. Ut quam tortor, facilisis nec laoreet consequat, malesuada a massa. Proin pretium tristique leo et imperdiet.</p>
-                                <div className="p_color">
-                                    <h4 className="p_d_title">color <span>*</span></h4>
-                                    <ul className="color_list">
-                                        <li><a href="/">*</a></li>
-                                        <li><a href="/">*</a></li>
-                                        <li><a href="/">*</a></li>
-                                        <li><a href="/">*</a></li>
-                                        <li><a href="/">*</a></li>
-                                        <li><a href="/">*</a></li>
-                                    </ul>
-                                </div>
-                                <div className="p_color">
-                                    <h4 className="p_d_title">size <span>*</span></h4>
-                                    <select className="selectpicker">
-                                        <option>Select your size</option>
-                                        <option>Select your size M</option>
-                                        <option>Select your size XL</option>
-                                    </select>
-                                </div>
+                                <Price price={product.price} />
                                 <div className="quantity">
                                     <div className="custom">
                                         <button onClick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" className="reduced items-count" type="button"><i className="icon_minus-06"></i></button>
@@ -78,16 +48,6 @@ class ProductDetailsPage extends Component {
                                         <button onClick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" className="increase items-count" type="button"><i className="icon_plus"></i></button>
                                     </div>
                                     <button className="add_cart_btn" onClick={addToCart}>add to cart</button>
-                                </div>
-                                <div className="shareing_icon">
-                                    <h5>share :</h5>
-                                    <ul>
-                                        <li><a href="/"><i className="social_facebook"></i></a></li>
-                                        <li><a href="/"><i className="social_twitter"></i></a></li>
-                                        <li><a href="/"><i className="social_pinterest"></i></a></li>
-                                        <li><a href="/"><i className="social_instagram"></i></a></li>
-                                        <li><a href="/"><i className="social_youtube"></i></a></li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
