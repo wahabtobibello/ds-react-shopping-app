@@ -32,11 +32,11 @@ class CartPage extends Component {
                                         <tbody>
                                             {cart.map((item, index) => (
                                                 <ProductItem
-                                                    key={item._id}
-                                                    id={item._id}
-                                                    title={item.title}
+                                                    key={item.product._id}
+                                                    id={item.product._id}
+                                                    title={item.product.title}
                                                     price={item.totalPrice}
-                                                    image={item.image}
+                                                    image={item.product.image}
                                                     quantity={item.quantity}
                                                     updateCart={(quantity) => updateCart(index, quantity)}
                                                     removeFromCart={() => removeFromCart(index)}
@@ -59,7 +59,7 @@ class CartPage extends Component {
                                             <h5>Subtotal</h5>
                                         </div>
                                         <div className="media-body">
-                                            <h6>${totalCost}</h6>
+                                            <h6>${Number.parseFloat(totalCost).toFixed(2)}</h6>
                                         </div>
                                     </div>
                                     <div className="media">
@@ -88,7 +88,7 @@ class CartPage extends Component {
                                         Total
                                 </div>
                                     <div className="float-right">
-                                        ${totalCost}
+                                        ${Number.parseFloat(totalCost).toFixed(2)}
                                     </div>
                                 </div>
                             </div>

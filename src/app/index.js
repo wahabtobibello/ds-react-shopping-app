@@ -166,7 +166,7 @@ class App extends Component {
   handleAddToCart = (prodIndex, quantity = 1) => {
     this.setState(prevState => {
       const product = prevState.products[prodIndex]
-      const cartIndex = prevState.cart.findIndex(item => item._id === product._id)
+      const cartIndex = prevState.cart.findIndex(item => item.product._id === product._id)
 
       if (cartIndex === -1) {
         const basePrice = (product.price.discount ? product.price.discount : product.price.normal)
@@ -175,7 +175,7 @@ class App extends Component {
           cart: [
             ...prevState.cart,
             {
-              ...prevState.products[prodIndex], basePrice, quantity, totalPrice
+              product :prevState.products[prodIndex], basePrice, quantity, totalPrice
             }
           ]
         }
