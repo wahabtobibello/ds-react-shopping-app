@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom'
-import uuid from 'uuid/v4'
+import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -15,8 +14,11 @@ class App extends Component {
   state = {
     products: [
       {
-        _id: uuid(),
-        imageUrl: "img/product/l-product-1.jpg",
+        _id: "1",
+        image: {
+          url: "img/product/l-product-1.jpg",
+          desc: ""
+        },
         title: "Womens Libero",
         price: {
           normal: 45.50,
@@ -24,8 +26,11 @@ class App extends Component {
         }
       },
       {
-        _id: uuid(),
-        imageUrl: "img/product/l-product-2.jpg",
+        _id: "2",
+        image: {
+          url: "img/product/l-product-2.jpg",
+          desc: ""
+        },
         title: "Travel Bags",
         price: {
           normal: 130,
@@ -33,8 +38,11 @@ class App extends Component {
         }
       },
       {
-        _id: uuid(),
-        imageUrl: "img/product/l-product-3.jpg",
+        _id: "3",
+        image: {
+          url: "img/product/l-product-3.jpg",
+          desc: ""
+        },
         title: "Summer Dress",
         price: {
           normal: 45.05,
@@ -42,8 +50,11 @@ class App extends Component {
         }
       },
       {
-        _id: uuid(),
-        imageUrl: "img/product/l-product-4.jpg",
+        _id: "4",
+        image: {
+          url: "img/product/l-product-4.jpg",
+          desc: ""
+        },
         title: "Nike Shoes",
         price: {
           normal: 130,
@@ -51,8 +62,11 @@ class App extends Component {
         }
       },
       {
-        _id: uuid(),
-        imageUrl: "img/product/l-product-5.jpg",
+        _id: "5",
+        image: {
+          url: "img/product/l-product-5.jpg",
+          desc: ""
+        },
         title: "Oxford Shirt",
         price: {
           normal: 85.50,
@@ -60,8 +74,11 @@ class App extends Component {
         }
       },
       {
-        _id: uuid(),
-        imageUrl: "img/product/l-product-6.jpg",
+        _id: "6",
+        image: {
+          url: "img/product/l-product-6.jpg",
+          desc: ""
+        },
         title: "High Heel",
         price: {
           normal: 130.50,
@@ -69,8 +86,11 @@ class App extends Component {
         }
       },
       {
-        _id: uuid(),
-        imageUrl: "img/product/l-product-7.jpg",
+        _id: "7",
+        image: {
+          url: "img/product/l-product-7.jpg",
+          desc: ""
+        },
         title: "Fossil Watch",
         price: {
           normal: 150,
@@ -78,8 +98,11 @@ class App extends Component {
         }
       },
       {
-        _id: uuid(),
-        imageUrl: "img/product/l-product-8.jpg",
+        _id: "8",
+        image: {
+          url: "img/product/l-product-8.jpg",
+          desc: ""
+        },
         title: "Ricky Shirt",
         price: {
           normal: 45.05,
@@ -87,8 +110,11 @@ class App extends Component {
         }
       },
       {
-        _id: uuid(),
-        imageUrl: "img/product/four-column/product-1.jpg",
+        _id: "9",
+        image: {
+          url: "img/product/four-column/product-1.jpg",
+          desc: ""
+        },
         title: "Oxford Shoes",
         price: {
           normal: 45.05,
@@ -96,8 +122,11 @@ class App extends Component {
         }
       },
       {
-        _id: uuid(),
-        imageUrl: "img/product/four-column/product-2.jpg",
+        _id: "10",
+        image: {
+          url: "img/product/four-column/product-2.jpg",
+          desc: ""
+        },
         title: "Formal Shirt",
         price: {
           normal: 130,
@@ -105,8 +134,11 @@ class App extends Component {
         }
       },
       {
-        _id: uuid(),
-        imageUrl: "img/product/four-column/product-3.jpg",
+        _id: "11",
+        image: {
+          url: "img/product/four-column/product-3.jpg",
+          desc: ""
+        },
         title: "Beats HeadPhone",
         price: {
           normal: 33.50,
@@ -114,28 +146,77 @@ class App extends Component {
         }
       },
       {
-        _id: uuid(),
-        imageUrl: "img/product/four-column/product-4.jpg",
+        _id: "12",
+        image: {
+          url: "img/product/four-column/product-4.jpg",
+          desc: ""
+        },
         title: "Wome Bag",
         price: {
           normal: 590.00,
           discount: null
         },
       }
-    ]
+    ],
+    cart: []
+  }
+
+  handleAddToCart = (index) => {
+    this.setState(prevState => ({
+      cart: [...prevState.cart, prevState.products[index]]
+    }))
+  }
+
+  handleRemoveFromCart = (index) => {
+    this.setState(prevState => ({
+      cart: [
+        ...prevState.cart.slice(0, index),
+        ...prevState.cart.slice(index + 1)
+      ]
+    }))
   }
 
   render() {
-    const { products } = this.state
+    const { products, cart } = this.state
     return (
       <BrowserRouter>
         <div>
-          <Header />
+          <Header cartSize={cart.length} />
           <Route path="/auth" component={AuthPage} />
-          <Route exact path="/" render={() => <CatalogPage products={products} />} />
-          <Route path="/cart" component={CartPage} />
+          <Route exact path="/" render={() =>
+            <CatalogPage
+              products={products}
+              addToCart={this.handleAddToCart}
+            />
+          } />
+          <Route path="/cart" render={() =>
+            <CartPage
+              cart={cart}
+              removeFromCart={this.handleRemoveFromCart}
+            />
+          } />
           <Route path="/checkout" component={CheckoutPage} />
-          <Route path="/product" component={ProductDetailsPage} />
+          <Route exact path="/product" render={() =>
+            <Redirect
+              to="/"
+            />
+          } />
+          <Route path="/product/:productId" render={({ match: { params } }) => {
+            let index = products.findIndex(product =>
+              product._id === params.productId)
+            if (index === -1) {
+              return (<Redirect to="/" />)
+            }
+            let product = products[index]
+            return (
+              <ProductDetailsPage
+                product={product}
+                addToCart={() => {
+                  this.handleAddToCart(index);
+                }}
+              />
+            )
+          }} />
           <Footer />
         </div>
       </BrowserRouter>

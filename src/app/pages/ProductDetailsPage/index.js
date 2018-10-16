@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class ProductDetailsPage extends Component {
     render() {
+        const { product, addToCart } = this.props
         return (
             <section className="product_details_area">
                 <div className="container">
@@ -36,7 +37,7 @@ class ProductDetailsPage extends Component {
                         </div>
                         <div className="col-lg-7">
                             <div className="product_details_text">
-                                <h3>Nike Flex Run Tracksuit</h3>
+                                <h3>{product.title}</h3>
                                 <ul className="p_rating">
                                     <li><a href="/"><i className="fa fa-star"></i></a></li>
                                     <li><a href="/"><i className="fa fa-star"></i></a></li>
@@ -72,11 +73,11 @@ class ProductDetailsPage extends Component {
                                 </div>
                                 <div className="quantity">
                                     <div className="custom">
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" className="reduced items-count" type="button"><i className="icon_minus-06"></i></button>
-                                        <input type="text" name="qty" id="sst" maxlength="12" value="01" title="Quantity:" className="input-text qty" />
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" className="increase items-count" type="button"><i className="icon_plus"></i></button>
+                                        <button onClick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" className="reduced items-count" type="button"><i className="icon_minus-06"></i></button>
+                                        <input type="text" name="qty" id="sst" maxLength="12" value="01" title="Quantity:" className="input-text qty" />
+                                        <button onClick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" className="increase items-count" type="button"><i className="icon_plus"></i></button>
                                     </div>
-                                    <a className="add_cart_btn" href="/">add to cart</a>
+                                    <button className="add_cart_btn" onClick={addToCart}>add to cart</button>
                                 </div>
                                 <div className="shareing_icon">
                                     <h5>share :</h5>

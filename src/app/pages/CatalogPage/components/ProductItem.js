@@ -1,24 +1,28 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import Price from './Price'
 
 const ProductItem = (props) => {
-    const { title, imageUrl, price } = props
+    const { id, title, image, price, addToCart } = props
     return (
+
         <div className="col-lg-3 col-sm-6">
+
             <div className="l_product_item">
-                <div className="l_p_img">
-                    <img className="img-fluid" src={imageUrl} alt="" />
-                    <h5 className="new">New</h5>
-                </div>
+                <Link to={`/product/${id}`}>
+                    <div className="l_p_img">
+                        <img className="img-fluid" src={image.url} alt={image.desc} />
+                    </div>
+                </Link>
                 <div className="l_p_text">
                     <ul>
-                        <li className="p_icon"><a href="/"><i className="icon_piechart"></i></a></li>
-                        <li><a className="add_cart_btn" href="/">Add To Cart</a></li>
-                        <li className="p_icon"><a href="/"><i className="icon_heart_alt"></i></a></li>
+                        {/* <li className="p_icon"><a href="/"><i className="icon_piechart"></i></a></li> */}
+                        <li><button className="add_cart_btn" onClick={addToCart}>Add To Cart</button></li>
+                        {/* <li className="p_icon"><a href="/"><i className="icon_heart_alt"></i></a></li> */}
                     </ul>
                     <h4>{title}</h4>
-                    <Price price={price}/>
+                    <Price price={price} />
                 </div>
             </div>
         </div>
