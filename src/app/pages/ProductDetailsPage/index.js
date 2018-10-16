@@ -1,8 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 
+import Product from '../../components/Product'
 import Price from './components/Price'
 
-class ProductDetailsPage extends Component {
+class ProductDetailsPage extends Product {
+    state = {
+        quantity: 1
+    }
+
+    handleChangeQuantityButton = (delta) => {
+        if (delta === -1 && this.state.quantity === 1) {
+            return
+        }
+        this.setState(
+            prevState => ({ quantity: this.state.quantity + delta })
+        )
+    }
+
+    handleChangeQuantityTextField = (e) => {
+        try {
+            if (!e.target.value) throw new Error()
+            const num = Number.parseInt(e.target.value)
+            this.setState(
+                prevState => ({ quantity: num })
+            )
+        } catch{
+            this.setState(
+                prevState => ({ quantity: 1 })
+            )
+        }
+    }
     render() {
         const { product, addToCart } = this.props
         return (
@@ -43,11 +70,11 @@ class ProductDetailsPage extends Component {
                                 <Price price={product.price} />
                                 <div className="quantity">
                                     <div className="custom">
-                                        <button onClick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" className="reduced items-count" type="button"><i className="icon_minus-06"></i></button>
-                                        <input type="text" name="qty" id="sst" maxLength="12" value="01" title="Quantity:" className="input-text qty" />
-                                        <button onClick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" className="increase items-count" type="button"><i className="icon_plus"></i></button>
+                                        <button onClick={() => this.handleChangeQuantityButton(-1)} className="reduced items-count" type="button"><i className="icon_minus-06"></i></button>
+                                        <input type="number" onChange={this.handleChangeQuantityTextField} id="sst" maxLength="12" value={this.state.quantity} title="Quantity:" className="input-text qty" />
+                                        <button onClick={() => this.handleChangeQuantityButton(1)} className="increase items-count" type="button"><i className="icon_plus"></i></button>
                                     </div>
-                                    <button className="add_cart_btn" onClick={addToCart}>add to cart</button>
+                                    <button className="add_cart_btn" onClick={() => addToCart(this.state.quantity)}>add to cart</button>
                                 </div>
                             </div>
                         </div>

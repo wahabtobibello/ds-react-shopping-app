@@ -5,14 +5,14 @@ import ProductItem from './components/ProductItem'
 
 class CartPage extends Component {
     render() {
-        const { cart, removeFromCart } = this.props
-        const totalPrice = cart.reduce((total, item) => (item.price.discount ? item.price.discount : item.price.normal) + total, 0)
+        const { cart, updateCart, removeFromCart } = this.props
+        const totalCost = cart.reduce((total, item) => item.totalPrice + total, 0)
         if (cart.length === 0) {
             return (
-                <section class="emty_cart_area p_100">
-                    <div class="container">
-                        <div class="emty_cart_inner">
-                            <i class="icon-handbag icons"></i>
+                <section className="emty_cart_area p_100">
+                    <div className="container">
+                        <div className="emty_cart_inner">
+                            <i className="icon-handbag icons"></i>
                             <h3>Your Cart is Empty</h3>
                             <h4>back to <Link to="/">shopping</Link></h4>
                         </div>
@@ -35,33 +35,15 @@ class CartPage extends Component {
                                                     key={item._id}
                                                     id={item._id}
                                                     title={item.title}
-                                                    price={item.price.discount ? item.price.discount : item.price.normal}
+                                                    price={item.totalPrice}
                                                     image={item.image}
+                                                    quantity={item.quantity}
+                                                    updateCart={(quantity) => updateCart(index, quantity)}
                                                     removeFromCart={() => removeFromCart(index)}
                                                 />))}
                                             <tr>
                                                 <th scope="row">
                                                 </th>
-                                            </tr>
-                                            <tr className="last">
-                                                <th scope="row">
-                                                    <img src="img/icon/cart-icon.png" alt="" />
-                                                </th>
-                                                <td>
-                                                    <div className="media">
-                                                        <div className="d-flex">
-                                                            <h5>Cupon code</h5>
-                                                        </div>
-                                                        <div className="media-body">
-                                                            <input type="text" placeholder="Apply cuopon" />
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><p className="red"></p></td>
-                                                <td>
-                                                    <h3>update cart</h3>
-                                                </td>
-                                                <td></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -77,7 +59,7 @@ class CartPage extends Component {
                                             <h5>Subtotal</h5>
                                         </div>
                                         <div className="media-body">
-                                            <h6>${totalPrice}</h6>
+                                            <h6>${totalCost}</h6>
                                         </div>
                                     </div>
                                     <div className="media">
@@ -106,7 +88,7 @@ class CartPage extends Component {
                                         Total
                                 </div>
                                     <div className="float-right">
-                                        ${totalPrice}
+                                        ${totalCost}
                                     </div>
                                 </div>
                             </div>

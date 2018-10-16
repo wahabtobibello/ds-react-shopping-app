@@ -10,6 +10,8 @@ import CheckoutPage from "./pages/CheckoutPage"
 import ProductDetailsPage from "./pages/ProductDetailsPage"
 import CatalogPage from "./pages/CatalogPage"
 
+import './styles.css'
+
 class App extends Component {
   state = {
     products: [
@@ -161,10 +163,53 @@ class App extends Component {
     cart: []
   }
 
-  handleAddToCart = (index) => {
-    this.setState(prevState => ({
-      cart: [...prevState.cart, prevState.products[index]]
-    }))
+  handleAddToCart = (prodIndex, quantity = 1) => {
+    this.setState(prevState => {
+      const product = prevState.products[prodIndex]
+      const cartIndex = prevState.cart.findIndex(item => item._id === product._id)
+
+      if (cartIndex === -1) {
+        const basePrice = (product.price.discount ? product.price.discount : product.price.normal)
+        const totalPrice = quantity * basePrice
+        return {
+          cart: [
+            ...prevState.cart,
+            {
+              ...prevState.products[prodIndex], basePrice, quantity, totalPrice
+            }
+          ]
+        }
+      }
+
+      else {
+        const cartItem = prevState.cart[cartIndex]
+        const newQuantity = cartItem.quantity + quantity
+        const totalPrice = newQuantity * cartItem.basePrice
+        return {
+          cart: [
+            ...prevState.cart.slice(0, cartIndex),
+            { ...cartItem, quantity: newQuantity, totalPrice },
+            ...prevState.cart.slice(cartIndex + 1)
+
+          ]
+        }
+      }
+    })
+  }
+
+  handleUpdateCart = (cartIndex, quantity) => {
+    this.setState(prevState => {
+      const cartItem = prevState.cart[cartIndex]
+      const totalPrice = quantity * cartItem.basePrice
+      return {
+        cart: [
+          ...prevState.cart.slice(0, cartIndex),
+          { ...cartItem, quantity, totalPrice },
+          ...prevState.cart.slice(cartIndex + 1)
+
+        ]
+      }
+    })
   }
 
   handleRemoveFromCart = (index) => {
@@ -192,6 +237,7 @@ class App extends Component {
           <Route path="/cart" render={() =>
             <CartPage
               cart={cart}
+              updateCart={this.handleUpdateCart}
               removeFromCart={this.handleRemoveFromCart}
             />
           } />
@@ -211,8 +257,8 @@ class App extends Component {
             return (
               <ProductDetailsPage
                 product={product}
-                addToCart={() => {
-                  this.handleAddToCart(index);
+                addToCart={(quantityToAdd) => {
+                  this.handleAddToCart(index, quantityToAdd);
                 }}
               />
             )
