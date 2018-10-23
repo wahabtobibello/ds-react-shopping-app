@@ -1,14 +1,14 @@
 import React from 'react'
 
 const Price = (props) => {
-    const { price } = props
-    if (price.discount) {
+    const { discountPrice, normalPrice } = props
+    if (discountPrice) {
         return (
-            <h4><del>${Number.parseFloat(price.normal).toFixed(2)}</del> ${Number.parseFloat(price.discount).toFixed(2)}</h4>
+            <h4><del>${Number.parseFloat(normalPrice).toFixed(2)}</del>    <span style={{ color: "tomato" }}>${Number.parseFloat(discountPrice).toFixed(2)}</span></h4>
         )
     }
     return (
-        <h4>${Number.parseFloat(price.normal).toFixed(2)}</h4>
+        <h4 className="red">${Number.parseFloat(normalPrice).toFixed(2)}</h4>
     )
 }
 

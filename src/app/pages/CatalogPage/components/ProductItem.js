@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Price from './Price'
 
 const ProductItem = (props) => {
-    const { id, title, image, price, addToCart } = props
+    const { id, title, imageUrl, normalPrice, discountPrice, addToCart } = props
     return (
 
         <div className="col-lg-3 col-sm-6">
@@ -12,7 +12,7 @@ const ProductItem = (props) => {
             <div className="l_product_item">
                 <Link to={`/product/${id}`}>
                     <div className="l_p_img">
-                        <img className="img-fluid" src={image.url} alt={image.desc} />
+                        <img className="img-fluid" src={imageUrl} alt="" />
                     </div>
                 </Link>
                 <div className="l_p_text">
@@ -22,7 +22,9 @@ const ProductItem = (props) => {
                         {/* <li className="p_icon"><a href="/"><i className="icon_heart_alt"></i></a></li> */}
                     </ul>
                     <h4>{title}</h4>
-                    <Price price={price} />
+                    <Price
+                        normalPrice={normalPrice}
+                        discountPrice={discountPrice} />
                 </div>
             </div>
         </div>

@@ -33,7 +33,7 @@ class ProductItem extends Component {
     }
 
     render() {
-        const { id, title, image, price, removeFromCart } = this.props
+        const { id, title, imageUrl, price, removeFromCart } = this.props
         const { quantity } = this.state
         return (
             <tr>
@@ -44,7 +44,7 @@ class ProductItem extends Component {
                     <Link to={`/product/${id}`}>
                         <div className="media">
                             <div className="d-flex">
-                                <img src={image.url} alt={image.desc} width="102px" height="123px" />
+                                <img src={imageUrl} alt="" width="102px" height="123px" />
                             </div>
                             <div className="media-body">
                                 <h4>{title}</h4>

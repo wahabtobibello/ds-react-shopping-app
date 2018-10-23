@@ -32,11 +32,11 @@ class CartPage extends Component {
                                         <tbody>
                                             {cart.map((item, index) => (
                                                 <ProductItem
-                                                    key={item.product._id}
-                                                    id={item.product._id}
+                                                    key={item.product.id}
+                                                    id={item.product.id}
                                                     title={item.product.title}
                                                     price={item.totalPrice}
-                                                    image={item.product.image}
+                                                    imageUrl={item.product.imageUrl}
                                                     quantity={item.quantity}
                                                     updateCart={(quantity) => updateCart(index, quantity)}
                                                     removeFromCart={() => removeFromCart(index)}
@@ -92,7 +92,7 @@ class CartPage extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" value="submit" className="btn subs_btn form-control">Proceed to checkout</button>
+                            <Link to="/checkout" className="btn subs_btn form-control">Proceed to checkout</Link>
                         </div>
                     </div>
                 </div>
