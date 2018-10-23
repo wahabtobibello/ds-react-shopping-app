@@ -1565,7 +1565,7 @@ i:before {
 /* Categories Banner Area css
 ============================================================================================ */
 .categories_banner_area {
-  background: url(../img/banner/categories-banner.jpg) no-repeat scroll center center;
+  /* background: url(../img/banner/categories-banner.jpg) no-repeat scroll center center; */
   background-size: cover;
   position: relative;
   z-index: 3;
