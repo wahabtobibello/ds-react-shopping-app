@@ -10,7 +10,7 @@ const Header = (props) => {
                     <nav className="navbar navbar-light bg-light">
                         <Link className="navbar-brand" to="/"><img src="/img/logo.png" alt="" /></Link>
                         <ul className="navbar-nav justify-content-end" style={{display:'flex'}}>
-                            <style>{`style + a:before {content:"${cartSize}"!important}`}</style>
+                            <style>{`style + li a:before {content:"${cartSize}"!important}`}</style>
                             <li className="cart_cart"><Link to="/cart"><i className="icon-handbag icons"></i></Link></li>
                         </ul>
                     </nav>
