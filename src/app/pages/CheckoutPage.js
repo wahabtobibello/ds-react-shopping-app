@@ -3,34 +3,39 @@ import { Redirect } from 'react-router-dom'
 
 class CheckoutPage extends Component {
     state = {
-        firstName: "Tobi",
-        lastName: "Bello",
-        address: "111, Igbosere Road, Lagos Island, Lagos.",
-        email: "tobibello001@gmail.com",
-        phoneNumber: "2348134202889",
+        formData: {
+            firstName: "Tobi",
+            lastName: "Bello",
+            address: "111, Igbosere Road, Lagos Island, Lagos.",
+            email: "tobibello001@gmail.com",
+            phoneNumber: "2348134202889"
+        },
         formInvalid: false
     }
 
     handleTextInputChange = (stateField, value) => {
         this.setState(prevState => {
             return {
-                [stateField]: value
+                formData: {
+                    [stateField]: value
+                }
             }
         })
     }
 
     handleFormSubmit = async (e) => {
+
+        const { orderFormSubmit, goToOrderSuccessPage } = this.props
         e.preventDefault()
-        for (let key in this.state) {
-            if (!this.state[key]) {
+        for (let key in this.state.formData) {
+            if (!this.state.formData[key]) {
                 this.setState({ formInvalid: true })
                 return
             }
         }
         this.setState({ formInvalid: false })
 
-        const { orderFormSubmit, goToOrderSuccessPage } = this.props
-        const response = orderFormSubmit(this.state)
+        const response = orderFormSubmit(this.state.formData)
         if (response) {
             goToOrderSuccessPage()
         }
@@ -39,11 +44,12 @@ class CheckoutPage extends Component {
     render() {
         const { cart } = this.props
         const {
-            firstName,
-            lastName,
-            address,
-            email,
-            phoneNumber,
+            formData: {
+                firstName,
+                lastName,
+                address,
+                email,
+                phoneNumber },
             formInvalid
         } = this.state
         if (cart.length === 0) {
