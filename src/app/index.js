@@ -37,7 +37,7 @@ class App extends Component {
 
   async componentDidMount() {
     try {
-      const { data: products } = await axios.get('http://localhost:1337/api/v1/product')
+      const { data: products } = await axios.get('https://ds-shopping-app-server.herokuapp.com/api/v1/product')
       this.setState(prevState => {
         return {
           products: [...products]
@@ -124,7 +124,7 @@ class App extends Component {
       cart: [...this.state.cart]
     }
     try {
-      const { data: response } = await axios.post("http://localhost:1337/api/v1/order", order)
+      const { data: response } = await axios.post("https://ds-shopping-app-server.herokuapp.com/api/v1/order", order)
       if (response.success) {
         this.setState(() => ({ cart: [] }))
       }
